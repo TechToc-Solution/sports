@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:dartz/dartz.dart';
 import 'package:sports/core/Api_services/api_services.dart';
 import 'package:sports/core/Api_services/urls.dart';
@@ -20,7 +18,6 @@ class HomeRepsIpml implements HomeRepo {
   @override
   Future<Either<Failure, List<Fields>>> fetchForm(String table_id) async {
     try {
-      log("saved token in home : ${CacheHelper.getData(key: 'token')}");
       var data = await apiServices.get(
           endPoint:
               '${Urls.getForm}?table_id=$table_id&token=${CacheHelper.getData(key: 'token')}');

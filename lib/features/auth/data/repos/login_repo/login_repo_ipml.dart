@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:dartz/dartz.dart';
 import 'package:sports/core/errors/error_handler.dart';
 import 'package:sports/core/errors/failure.dart';
@@ -20,10 +18,7 @@ class LoginRepoIpml implements LoginRepo {
       var resp = await apiServices.get(
           endPoint:
               "${Urls.getToken}?lang=en&user_name=$userName&password=$password");
-      log("token is : ${resp.data['token']}");
-
       CacheHelper.setString(key: 'token', value: resp.data['token']);
-      log("saved token is : ${CacheHelper.getData(key: 'token')}");
       return right(resp.data['token']);
     } catch (e) {
       return left(ErrorHandler.handle(e));
