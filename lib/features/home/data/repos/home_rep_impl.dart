@@ -5,7 +5,7 @@ import 'package:sports/core/errors/error_handler.dart';
 import 'package:sports/core/errors/failure.dart';
 import 'package:sports/core/utils/cache_helper.dart';
 
-import 'package:sports/features/home/data/models/dropDown_items.dart';
+import 'package:sports/features/home/data/models/drop_down_items.dart';
 import 'package:sports/features/home/data/models/fields.dart';
 import 'package:sports/features/home/data/models/from_data.dart';
 import 'package:sports/features/home/data/repos/home_repo.dart';
@@ -16,11 +16,11 @@ class HomeRepsIpml implements HomeRepo {
   HomeRepsIpml(this.apiServices);
 
   @override
-  Future<Either<Failure, List<Fields>>> fetchForm(String table_id) async {
+  Future<Either<Failure, List<Fields>>> fetchForm(String tableId) async {
     try {
       var data = await apiServices.get(
           endPoint:
-              '${Urls.getForm}?table_id=$table_id&token=${CacheHelper.getData(key: 'token')}');
+              '${Urls.getForm}?table_id=$tableId&token=${CacheHelper.getData(key: 'token')}');
 
       MyFormData form = MyFormData.fromJson(data.data[0]);
       return right(form.fields ?? []);
@@ -35,7 +35,7 @@ class HomeRepsIpml implements HomeRepo {
     try {
       var data = await apiServices.get(
           endPoint:
-              '${Urls.GetDropDownData}?code=$code&token=${CacheHelper.getData(key: 'token')}&limit=10&search=');
+              '${Urls.getDropDownData}?code=$code&token=${CacheHelper.getData(key: 'token')}&limit=10&search=');
       List<DropDownItems> items = [];
       for (var item in data.data as List) {
         items.add(DropDownItems.fromJson(item as Map<String, dynamic>));

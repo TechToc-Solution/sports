@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:sports/core/utils/colors.dart';
-import 'package:sports/features/home/data/models/dropDown_items.dart';
+import 'package:sports/features/home/data/models/drop_down_items.dart';
 
 class CustomDropdown extends StatefulWidget {
   final List<DropDownItems> items;
@@ -17,10 +17,10 @@ class CustomDropdown extends StatefulWidget {
   });
 
   @override
-  _CustomDropdownState createState() => _CustomDropdownState();
+  CustomDropdownState createState() => CustomDropdownState();
 }
 
-class _CustomDropdownState extends State<CustomDropdown> {
+class CustomDropdownState extends State<CustomDropdown> {
   String? selectedValue;
 
   @override
@@ -35,18 +35,21 @@ class _CustomDropdownState extends State<CustomDropdown> {
         ),
         child: DropdownButtonFormField<String>(
           decoration: InputDecoration(
-            contentPadding: EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+            contentPadding:
+                const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
             border: InputBorder.none,
             labelText: widget.label,
             hintText: widget.hint,
-            labelStyle: TextStyle(color: Colors.white, fontSize: 16.0),
+            labelStyle: const TextStyle(color: Colors.white, fontSize: 16.0),
           ),
-          style: TextStyle(fontSize: 18.0, color: AppColors.textButtonColors),
+          style: const TextStyle(
+              fontSize: 18.0, color: AppColors.textButtonColors),
           value: selectedValue,
           items: widget.items.map((DropDownItems item) {
             return DropdownMenuItem<String>(
               value: item.id.toString(),
-              child: Text(item.name!, style: TextStyle(color: Colors.white)),
+              child:
+                  Text(item.name!, style: const TextStyle(color: Colors.white)),
             );
           }).toList(),
           onChanged: (value) {
@@ -58,7 +61,7 @@ class _CustomDropdownState extends State<CustomDropdown> {
             }
           },
           dropdownColor: AppColors.primaryColors,
-          icon: Icon(Icons.arrow_drop_down, color: Colors.white),
+          icon: const Icon(Icons.arrow_drop_down, color: Colors.white),
         ),
       ),
     );

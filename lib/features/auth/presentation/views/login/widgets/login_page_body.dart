@@ -50,7 +50,7 @@ class _LoginPageBodyState extends State<LoginPageBody> {
       ),
       body: ListView(
         padding: const EdgeInsets.symmetric(
-            horizontal: KHorizontalPadding, vertical: KVerticalPadding),
+            horizontal: kHorizontalPadding, vertical: kVerticalPadding),
         children: [
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 15.0),

@@ -5,5 +5,5 @@ class Urls {
       "https://fnizam.com/netStore/WebServices/ServicesAPI.asmx";
   static String getToken = "/getToken";
   static String getForm = "/Entity_Get_Strucure";
-  static String GetDropDownData = "/Dropdown";
+  static String getDropDownData = "/Dropdown";
 }

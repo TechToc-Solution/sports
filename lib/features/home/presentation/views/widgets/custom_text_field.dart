@@ -34,7 +34,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
       builder: (context, child) {
         return Theme(
           data: Theme.of(context).copyWith(
-            colorScheme: ColorScheme.light(
+            colorScheme: const ColorScheme.light(
               primary: AppColors.primaryColors, // Highlight color
               onPrimary: Colors.white, // Text color
               onSurface: Colors.black, // Background color
@@ -73,17 +73,17 @@ class _CustomTextFieldState extends State<CustomTextField> {
           keyboardType: widget.keyboardType, // Set the input type here
           decoration: InputDecoration(
             prefixIcon: widget.keyboardType == TextInputType.text
-                ? Icon(Icons.text_fields)
+                ? const Icon(Icons.text_fields)
                 : widget.keyboardType == TextInputType.number
-                    ? Icon(Icons.numbers)
-                    : Icon(Icons.date_range),
-            contentPadding: EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+                    ? const Icon(Icons.numbers)
+                    : const Icon(Icons.date_range),
+            contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
             border: InputBorder.none,
             labelText: widget.label,
             prefixIconColor: AppColors.primaryColors,
             hintText: widget.hint,
             hintStyle: TextStyle(fontSize: 18.0, color: AppColors.borderColor),
-            labelStyle: TextStyle(color: Colors.white, fontSize: 16.0),
+            labelStyle: const TextStyle(color: Colors.white, fontSize: 16.0),
           ),
           style: TextStyle(fontSize: 18.0, color: AppColors.borderColor),
         ),

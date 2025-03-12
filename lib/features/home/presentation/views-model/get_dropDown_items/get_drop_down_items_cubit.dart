@@ -1,6 +1,6 @@
-import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:sports/features/home/data/models/dropDown_items.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:sports/features/home/data/models/drop_down_items.dart';
 
 part 'get_drop_down_items_state.dart';
 

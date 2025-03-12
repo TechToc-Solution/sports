@@ -14,9 +14,9 @@ import 'package:sports/features/auth/data/repos/login_repo/login_repo.dart';
 import 'package:sports/features/auth/presentation/view-model/login_cubit/login_cubit.dart';
 import 'package:sports/features/home/data/repos/home_repo.dart';
 import 'package:sports/features/home/presentation/views-model/get_form/get_form_cubit.dart';
-import 'package:sports/features/home/presentation/views/home_page.dart';
 
 import 'features/auth/presentation/views/login/login_page.dart';
+import 'features/home/presentation/views/home_page.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();

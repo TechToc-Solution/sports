@@ -25,7 +25,7 @@ class _MyHomePageState extends State<HomePage> {
       ),
       body: SafeArea(
         child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: KHorizontalPadding),
+            padding: const EdgeInsets.symmetric(horizontal: kHorizontalPadding),
             child: BlocBuilder<GetFormCubit, GetFormState>(
               builder: (context, state) {
                 if (state is GetFormSuccess) {

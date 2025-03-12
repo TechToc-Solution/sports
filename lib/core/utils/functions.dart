@@ -26,7 +26,7 @@ Route goRoute({required var x}) {
 void messages(BuildContext context, String error, Color c, {int msgTime = 2}) {
   ScaffoldMessenger.of(context).showSnackBar(SnackBar(
     behavior: SnackBarBehavior.floating,
-    margin: EdgeInsets.symmetric(
+    margin: const EdgeInsets.symmetric(
       horizontal: 16,
     ),
     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
@@ -45,7 +45,7 @@ void showAwesomeDialog({
   required void Function() btnCancel,
 }) async {
   await AwesomeDialog(
-    descTextStyle: TextStyle(fontSize: 16),
+    descTextStyle: const TextStyle(fontSize: 16),
     btnOkText: "yes".tr(context),
     btnCancelText: "no".tr(context),
     context: context,
