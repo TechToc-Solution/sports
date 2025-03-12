@@ -13,10 +13,10 @@ class GetFormCubit extends Cubit<GetFormState> {
     emit(GetFormLoading());
     var data = await homeRepo.fetchForm(form_id);
     data.fold((failuer) {
-      emit(GetFormFailuer(failuer));
+      emit(GetFormFailuer(failuer.message));
     }, (form) async {
       List<List<DropDownItems>> formDropDownList = [];
-      for (var field in form)
+      for (var field in form) {
         if (field.dropdown != null && field.dropdown != "") {
           var dropDownItems =
               await homeRepo.fetchDropDownItems(field.dropdown!);
@@ -28,6 +28,7 @@ class GetFormCubit extends Cubit<GetFormState> {
         } else {
           formDropDownList.add([]);
         }
+      }
       emit(GetFormSuccess(form, formDropDownList));
     });
   }

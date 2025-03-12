@@ -3,7 +3,8 @@ import 'dart:developer';
 import 'package:dartz/dartz.dart';
 import 'package:sports/core/Api_services/api_services.dart';
 import 'package:sports/core/Api_services/urls.dart';
-import 'package:sports/core/errors/ExceptionsHandle.dart';
+import 'package:sports/core/errors/error_handler.dart';
+import 'package:sports/core/errors/failure.dart';
 import 'package:sports/core/utils/cache_helper.dart';
 
 import 'package:sports/features/home/data/models/dropDown_items.dart';
@@ -17,7 +18,7 @@ class HomeRepsIpml implements HomeRepo {
   HomeRepsIpml(this.apiServices);
 
   @override
-  Future<Either<String, List<Fields>>> fetchForm(String table_id) async {
+  Future<Either<Failure, List<Fields>>> fetchForm(String table_id) async {
     try {
       log("saved token in home : ${CacheHelper.getData(key: 'token')}");
       var data = await apiServices.get(
@@ -27,15 +28,12 @@ class HomeRepsIpml implements HomeRepo {
       MyFormData form = MyFormData.fromJson(data.data[0]);
       return right(form.fields ?? []);
     } catch (e) {
-      // if (e is DioException) {
-      //   return left(exceptionsHandle(error: e));
-      // }
-      return left("An unexpected error occurred: ${e.toString()}");
+      return left(ErrorHandler.handle(e));
     }
   }
 
   @override
-  Future<Either<String, List<DropDownItems>>> fetchDropDownItems(
+  Future<Either<Failure, List<DropDownItems>>> fetchDropDownItems(
       String code) async {
     try {
       var data = await apiServices.get(
@@ -48,10 +46,7 @@ class HomeRepsIpml implements HomeRepo {
 
       return right(items);
     } catch (e) {
-      // if (e is DioException) {
-      //   return left(exceptionsHandle(error: e));
-      // }
-      return left("error");
+      return left(ErrorHandler.handle(e));
     }
   }
 }

@@ -80,9 +80,10 @@ class MyApp extends StatelessWidget {
                   ColorScheme.fromSeed(seedColor: AppColors.primaryColors),
               useMaterial3: true,
             ),
-            initialRoute: CacheHelper.getData(key: 'token') == null
-                ? LoginPage.routeName
-                : HomePage.routeName,
+            // initialRoute: CacheHelper.getData(key: 'token') == null
+            //     ? LoginPage.routeName
+            //     : HomePage.routeName,
+            initialRoute: HomePage.routeName,
             routes: Routes.routes,
           );
         },

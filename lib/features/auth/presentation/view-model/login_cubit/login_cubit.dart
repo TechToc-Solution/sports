@@ -12,8 +12,8 @@ class LoginCubit extends Cubit<LoginState> {
   Future login({required String userName, required String passwrod}) async {
     emit(LoginLoading());
     var resp = await _loginRepo.login(userName, passwrod);
-    resp.fold((error) {
-      emit(LoginError(errorMsg: error));
+    resp.fold((failure) {
+      emit(LoginError(errorMsg: failure.message));
     }, (user) {
       emit(LoginSuccess());
     });

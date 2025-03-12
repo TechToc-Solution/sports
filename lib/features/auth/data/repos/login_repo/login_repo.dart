@@ -1,5 +1,6 @@
 import 'package:dartz/dartz.dart';
+import 'package:sports/core/errors/failure.dart';
 
 abstract class LoginRepo {
-  Future<Either<String, String>> login(String pass, String phone);
+  Future<Either<Failure, String>> login(String pass, String phone);
 }

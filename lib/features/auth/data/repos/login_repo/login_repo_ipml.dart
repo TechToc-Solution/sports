@@ -1,8 +1,8 @@
 import 'dart:developer';
 
 import 'package:dartz/dartz.dart';
-import 'package:dio/dio.dart';
-import 'package:sports/core/errors/ExceptionsHandle.dart';
+import 'package:sports/core/errors/error_handler.dart';
+import 'package:sports/core/errors/failure.dart';
 import 'package:sports/core/utils/cache_helper.dart';
 
 import '../../../../../core/Api_services/api_services.dart';
@@ -14,7 +14,8 @@ class LoginRepoIpml implements LoginRepo {
 
   LoginRepoIpml(this.apiServices);
   @override
-  Future<Either<String, String>> login(String userName, String password) async {
+  Future<Either<Failure, String>> login(
+      String userName, String password) async {
     try {
       var resp = await apiServices.get(
           endPoint:
@@ -25,7 +26,7 @@ class LoginRepoIpml implements LoginRepo {
       log("saved token is : ${CacheHelper.getData(key: 'token')}");
       return right(resp.data['token']);
     } catch (e) {
-      return left("error: ${e.toString()}");
+      return left(ErrorHandler.handle(e));
     }
   }
 }
