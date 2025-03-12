@@ -10,9 +10,13 @@ import 'package:sports/core/utils/colors.dart';
 import 'package:sports/core/utils/routs.dart';
 import 'package:sports/core/utils/services_locater.dart';
 import 'package:sports/core/utils/styles.dart';
+import 'package:sports/features/auth/data/repos/login_repo/login_repo.dart';
+import 'package:sports/features/auth/presentation/view-model/login_cubit/login_cubit.dart';
 import 'package:sports/features/home/data/repos/home_repo.dart';
 import 'package:sports/features/home/presentation/views-model/get_form/get_form_cubit.dart';
 import 'package:sports/features/home/presentation/views/home_page.dart';
+
+import 'features/auth/presentation/views/login/login_page.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -35,6 +39,7 @@ class MyApp extends StatelessWidget {
             create: (context) => GetFormCubit(
                   getit.get<HomeRepo>(),
                 )..fetchForm("255")),
+        BlocProvider(create: (context) => LoginCubit(getit.get<LoginRepo>()))
       ],
       child: BlocBuilder<LocaleCubit, ChangeLocaleState>(
         builder: (context, state) {
@@ -75,7 +80,9 @@ class MyApp extends StatelessWidget {
                   ColorScheme.fromSeed(seedColor: AppColors.primaryColors),
               useMaterial3: true,
             ),
-            initialRoute: HomePage.routeName,
+            initialRoute: CacheHelper.getData(key: 'token') == null
+                ? LoginPage.routeName
+                : HomePage.routeName,
             routes: Routes.routes,
           );
         },
