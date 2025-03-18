@@ -25,15 +25,11 @@ class CustomDropdown extends StatefulWidget {
 class CustomDropdownState extends State<CustomDropdown> {
   String? selectedValue;
   List<DropDownItems> items = [];
-  bool isLoading = false;
 
-  Future<void> fetchItems() async {
-    if (items.isEmpty && !isLoading) {
-      setState(() {
-        isLoading = true;
-      });
-      context.read<GetDropDownItemsCubit>().fetchDropDownItems(widget.code);
-    }
+  @override
+  void initState() {
+    super.initState();
+    context.read<GetDropDownItemsCubit>().fetchDropDownItems(widget.code);
   }
 
   @override
@@ -43,11 +39,6 @@ class CustomDropdownState extends State<CustomDropdown> {
         if (state is GetDropDownItemsSuccess) {
           setState(() {
             items = state.items;
-            isLoading = false;
-          });
-        } else if (state is GetDropDownItemsFailuer) {
-          setState(() {
-            isLoading = false;
           });
         }
       },
@@ -88,7 +79,6 @@ class CustomDropdownState extends State<CustomDropdown> {
                 widget.onChanged!(value);
               }
             },
-            onTap: fetchItems, // جلب البيانات عند فتح القائمة
             dropdownColor: AppColors.primaryColors,
             icon: const Icon(Icons.arrow_drop_down, color: Colors.white),
           ),
