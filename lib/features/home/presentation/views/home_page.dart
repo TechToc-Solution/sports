@@ -74,7 +74,10 @@ class _MyHomePageState extends State<HomePage> {
                   );
                 } else if (state is GetFormFailuer) {
                   return CustomErrorWidget(
-                      errorMessage: state.errorMessage, onRetry: () {});
+                      errorMessage: state.errorMessage,
+                      onRetry: () {
+                        context.read<GetFormCubit>().fetchForm("255");
+                      });
                 }
                 return const Center(child: CircularProgressIndicator());
               },
