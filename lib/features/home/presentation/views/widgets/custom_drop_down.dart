@@ -1,3 +1,4 @@
+import 'package:dropdown_search/dropdown_search.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sports/core/utils/colors.dart';
@@ -29,7 +30,7 @@ class CustomDropdownState extends State<CustomDropdown> {
   @override
   void initState() {
     super.initState();
-    context.read<GetDropDownItemsCubit>().fetchDropDownItems(widget.code);
+    context.read<GetDropDownItemsCubit>().fetchDropDownItems(code: widget.code);
   }
 
   @override
@@ -50,37 +51,69 @@ class CustomDropdownState extends State<CustomDropdown> {
             borderRadius: BorderRadius.circular(12),
             border: Border.all(color: AppColors.primaryColors, width: 2),
           ),
-          child: DropdownButtonFormField<String>(
-            decoration: InputDecoration(
-              contentPadding:
-                  const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-              border: InputBorder.none,
-              labelText: widget.label,
-              hintText: widget.hint,
-              labelStyle: const TextStyle(color: Colors.white, fontSize: 16.0),
+          child: DropdownSearch<DropDownItems>(
+            enabled: true,
+            popupProps: PopupProps.menu(
+              errorBuilder: (context, error, stackTrace) => Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Text('Error: ${error.toString()}',
+                    style: const TextStyle(color: Colors.red)),
+              ),
+              loadingBuilder: (context, searchEntry) => const Center(
+                child: CircularProgressIndicator(),
+              ),
+              showSearchBox: true,
+              searchDelay: const Duration(milliseconds: 500),
+              searchFieldProps: const TextFieldProps(
+                decoration: InputDecoration(
+                  hintText: 'Search...',
+                  hintStyle: TextStyle(color: Colors.black),
+                  border: OutlineInputBorder(),
+                ),
+              ),
+              menuProps: const MenuProps(
+                backgroundColor: AppColors.avatarColor,
+                elevation: 5,
+              ),
             ),
-            style: const TextStyle(
-                fontSize: 18.0, color: AppColors.textButtonColors),
-            value: selectedValue,
-            items: items.isNotEmpty
-                ? items.map((DropDownItems item) {
-                    return DropdownMenuItem<String>(
-                      value: item.id.toString(),
-                      child: Text(item.name!,
-                          style: const TextStyle(color: Colors.white)),
-                    );
-                  }).toList()
-                : [],
+            items: (String? filter, LoadProps? load) async {
+              final cubit = context.read<GetDropDownItemsCubit>();
+              return await cubit
+                  .fetchDropDownItems(
+                    code: widget.code,
+                    search: filter,
+                    emitState: false,
+                  )
+                  .then((result) => result.fold(
+                        (failure) => throw failure.message,
+                        (items) => items,
+                      ));
+            },
+            itemAsString: (item) => item.name ?? '',
             onChanged: (value) {
               setState(() {
-                selectedValue = value;
+                selectedValue = value!.name;
               });
               if (widget.onChanged != null) {
-                widget.onChanged!(value);
+                widget.onChanged!(value!.name);
               }
             },
-            dropdownColor: AppColors.primaryColors,
-            icon: const Icon(Icons.arrow_drop_down, color: Colors.white),
+            //selectedItem: selectedValue,
+            decoratorProps: DropDownDecoratorProps(
+              baseStyle: const TextStyle(color: Colors.white, fontSize: 16.0),
+              decoration: InputDecoration(
+                contentPadding:
+                    const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+                border: InputBorder.none,
+                labelText: widget.label,
+                hintText: widget.hint,
+                labelStyle:
+                    const TextStyle(color: Colors.white, fontSize: 16.0),
+              ),
+            ),
+            compareFn: (item1, item2) {
+              return item1.name == item2.name;
+            },
           ),
         ),
       ),

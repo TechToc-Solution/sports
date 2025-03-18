@@ -31,11 +31,11 @@ class HomeRepsIpml implements HomeRepo {
 
   @override
   Future<Either<Failure, List<DropDownItems>>> fetchDropDownItems(
-      String code) async {
+      {required String code, String? search}) async {
     try {
       var data = await apiServices.get(
           endPoint:
-              '${Urls.getDropDownData}?code=$code&token=${CacheHelper.getData(key: 'token')}&limit=10&search=');
+              '${Urls.getDropDownData}?code=$code&token=${CacheHelper.getData(key: 'token')}&limit=10&search=$search');
       List<DropDownItems> items = [];
       for (var item in data.data as List) {
         items.add(DropDownItems.fromJson(item as Map<String, dynamic>));
