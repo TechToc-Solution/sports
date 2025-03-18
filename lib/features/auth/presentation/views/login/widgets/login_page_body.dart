@@ -67,12 +67,14 @@ class _LoginPageBodyState extends State<LoginPageBody> {
                 CustomTextField(
                     text: "user_name".tr(context),
                     isPassword: false,
+                    borderColor: AppColors.primaryColors,
                     validatorFun: (p0) =>
                         Validator.validate(p0, ValidationState.normal),
                     controller: nameController),
                 CustomTextField(
                     text: "password".tr(context),
                     isPassword: true,
+                    borderColor: AppColors.primaryColors,
                     validatorFun: (p0) =>
                         Validator.validate(p0, ValidationState.normal),
                     controller: passwordController),

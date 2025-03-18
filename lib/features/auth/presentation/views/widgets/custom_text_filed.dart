@@ -54,11 +54,11 @@ class _CustomTextFieldState extends State<CustomTextField> {
         setState(() {
           fillColor = const Color(0xffF4F7FE);
           passwordIconColor = Colors.black87;
-          labelTextColor = Colors.grey;
+          labelTextColor = AppColors.primaryColors;
           textColor = Colors.black87;
         });
       }
-    });
+  });
     super.initState();
   }
 
@@ -66,46 +66,53 @@ class _CustomTextFieldState extends State<CustomTextField> {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 15),
-      child: TextFormField(
-        style: Styles.textStyle16.copyWith(
-          color: textColor,
+      child: Container(
+        padding: EdgeInsets.only(top: 8),
+        decoration: BoxDecoration(
+          color: fillColor,
+          borderRadius: BorderRadius.circular(kBorderRadius),
         ),
-        onChanged: widget.onChange,
-        keyboardType: widget.keyboardType,
-        textInputAction: TextInputAction.next,
-        validator: widget.validatorFun,
-        controller: widget.controller,
-        focusNode: focusNode,
-        maxLines: widget.maxLine,
-        obscureText: widget.isPassword ? !showPassowrd : false,
-        decoration: InputDecoration(
-          labelStyle: TextStyle(color: labelTextColor),
-          focusedBorder: OutlineInputBorder(
-            borderSide: BorderSide(
-                color: widget.borderColor == null
-                    ? const Color(0xffB2B9C6)
-                    : widget.borderColor!),
-            borderRadius: BorderRadius.circular(kBorderRadius),
+        child: TextFormField(
+          style: Styles.textStyle16.copyWith(
+            color: textColor,
           ),
-          labelText: widget.text,
-          suffixIcon: widget.isPassword
-              ? IconButton(
-                  icon: Icon(
-                    showPassowrd ? Icons.visibility : Icons.visibility_off,
-                    color: passwordIconColor,
-                  ),
-                  onPressed: () {
-                    setState(() {
-                      showPassowrd = !showPassowrd;
-                    });
-                  },
-                )
-              : null,
-          border: OutlineInputBorder(
+          onChanged: widget.onChange,
+          keyboardType: widget.keyboardType,
+          textInputAction: TextInputAction.next,
+          validator: widget.validatorFun,
+          controller: widget.controller,
+          focusNode: focusNode,
+          maxLines: widget.maxLine,
+          obscureText: widget.isPassword ? !showPassowrd : false,
+          decoration: InputDecoration(
+            labelStyle: TextStyle(color: labelTextColor),
+            focusedBorder: OutlineInputBorder(
+              borderSide: BorderSide(
+                  color: widget.borderColor == null
+                      ? const Color(0xffB2B9C6)
+                      : widget.borderColor!),
               borderRadius: BorderRadius.circular(kBorderRadius),
-              borderSide: BorderSide.none),
-          fillColor: fillColor,
-          filled: true,
+            ),
+            labelText: widget.text,
+            suffixIcon: widget.isPassword
+                ? IconButton(
+                    icon: Icon(
+                      showPassowrd ? Icons.visibility : Icons.visibility_off,
+                      color: passwordIconColor,
+                    ),
+                    onPressed: () {
+                      setState(() {
+                        showPassowrd = !showPassowrd;
+                      });
+                    },
+                  )
+                : null,
+            border: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(kBorderRadius),
+                borderSide: BorderSide.none),
+            fillColor: fillColor,
+            filled: true,
+          ),
         ),
       ),
     );
