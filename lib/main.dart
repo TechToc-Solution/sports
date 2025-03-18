@@ -13,6 +13,7 @@ import 'package:sports/core/utils/styles.dart';
 import 'package:sports/features/auth/data/repos/login_repo/login_repo.dart';
 import 'package:sports/features/auth/presentation/view-model/login_cubit/login_cubit.dart';
 import 'package:sports/features/home/data/repos/home_repo.dart';
+import 'package:sports/features/home/presentation/views-model/get_dropDown_items/get_drop_down_items_cubit.dart';
 import 'package:sports/features/home/presentation/views-model/get_form/get_form_cubit.dart';
 
 import 'features/auth/presentation/views/login/login_page.dart';
@@ -39,6 +40,8 @@ class MyApp extends StatelessWidget {
             create: (context) => GetFormCubit(
                   getit.get<HomeRepo>(),
                 )..fetchForm("255")),
+        BlocProvider(
+            create: (context) => GetDropDownItemsCubit(getit.get<HomeRepo>())),
         BlocProvider(create: (context) => LoginCubit(getit.get<LoginRepo>()))
       ],
       child: BlocBuilder<LocaleCubit, ChangeLocaleState>(

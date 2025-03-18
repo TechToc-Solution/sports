@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sports/core/utils/colors.dart';
 import 'package:sports/core/utils/constats.dart';
 import 'package:sports/core/widgets/custom_error_widget.dart';
+import 'package:sports/features/auth/presentation/views/login/login_page.dart';
 import 'package:sports/features/home/presentation/views-model/get_form/get_form_cubit.dart';
 import 'package:sports/features/home/presentation/views/form_body.dart';
 
@@ -18,6 +19,18 @@ class _MyHomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        actions: [
+          IconButton(
+              onPressed: () {
+                Navigator.pushReplacementNamed(context, LoginPage.routeName);
+              },
+              icon: const Icon(
+                Icons.logout,
+                color: AppColors.primaryColors,
+              ))
+        ],
+      ),
       floatingActionButton: FloatingActionButton(
         backgroundColor: AppColors.primaryColors,
         onPressed: () {},
@@ -31,7 +44,6 @@ class _MyHomePageState extends State<HomePage> {
                 if (state is GetFormSuccess) {
                   return FormBody(
                     fields: state.fields,
-                    dropDownLists: state.dropDownLists,
                   );
                 } else if (state is GetFormFailuer) {
                   return CustomErrorWidget(
