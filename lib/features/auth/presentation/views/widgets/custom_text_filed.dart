@@ -67,7 +67,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 15),
       child: Container(
-        padding: EdgeInsets.only(top: 8),
+        padding: const EdgeInsets.only(top: 8),
         decoration: BoxDecoration(
           color: fillColor,
           borderRadius: BorderRadius.circular(kBorderRadius),
